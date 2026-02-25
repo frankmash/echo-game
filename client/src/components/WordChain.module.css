@@ -1,0 +1,51 @@
+.container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 1.5rem;
+  min-height: 100px;
+  margin-bottom: 1.5rem;
+}
+
+.label {
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.wordGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.arrow {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.word {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+  animation: wordPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.accepted { color: var(--text); }
+.rejected { color: var(--danger); text-decoration: line-through; opacity: 0.5; }
+.pending { color: var(--accent); border-bottom: 2px solid var(--accent); }
+
+.empty {
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}

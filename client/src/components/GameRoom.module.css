@@ -1,0 +1,128 @@
+.game {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.roundBadge {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.4rem 1rem;
+  color: var(--text);
+}
+
+.code { color: var(--muted); }
+
+.playersBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.activeChip { border-color: var(--accent); color: var(--accent); }
+
+.chipScore {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  color: var(--accent);
+  margin-left: 0.25rem;
+}
+
+.turnPanel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.turnLabel {
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.turnPlayer {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.inputArea { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.wordRow { display: flex; gap: 0.75rem; }
+.wordRow input { flex: 1; }
+
+.submitBtn {
+  background: var(--accent);
+  border: none;
+  border-radius: 2px;
+  color: #0a0a0a;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  padding: 0 1.5rem;
+  white-space: nowrap;
+  transition: box-shadow 0.15s;
+}
+.submitBtn:hover { box-shadow: 0 4px 12px rgba(232,255,71,0.3); }
+
+.explInput { font-size: 0.8rem !important; }
+
+.endBtn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  padding: 0.75rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+.endBtn:hover { border-color: var(--danger); color: var(--danger); }
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  animation: fadeIn 0.3s ease;
+  pointer-events: none;
+  z-index: 100;
+}
