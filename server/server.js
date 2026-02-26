@@ -105,7 +105,7 @@ io.on('connection', (socket) => {
     cb({ ok: true });
   });
 
-  // --- END GAME (manual) ---
+  // --- END GAME  ---
   socket.on('end_game', ({ code, playerName }, cb) => {
     const room = getRoom(code);
     if (!room) return cb({ error: 'Room not found' });
