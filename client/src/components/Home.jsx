@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import socket from '../socket'
-import styles from './Home.module.css'
+import s from './Home.module.css'
 
 export default function Home({ navigate }) {
   const [name, setName] = useState('')
-  const [joinCode, setJoinCode] = useState('')
+  const [code, setCode] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const createRoom = () => {
-    if (!name.trim()) { setError('Enter your name first'); return }
+  const create = () => {
+    if (!name.trim()) { setError('Enter your name'); return }
     setLoading(true)
     socket.emit('create_room', { playerName: name.trim() }, (res) => {
       setLoading(false)
@@ -18,11 +18,11 @@ export default function Home({ navigate }) {
     })
   }
 
-  const joinRoom = () => {
-    if (!name.trim()) { setError('Enter your name first'); return }
-    if (!joinCode.trim()) { setError('Enter a room code'); return }
+  const join = () => {
+    if (!name.trim()) { setError('Enter your name'); return }
+    if (!code.trim()) { setError('Enter a room code'); return }
     setLoading(true)
-    socket.emit('join_room', { playerName: name.trim(), code: joinCode.trim().toUpperCase() }, (res) => {
+    socket.emit('join_room', { playerName: name.trim(), code: code.trim().toUpperCase() }, (res) => {
       setLoading(false)
       if (res.error) { setError(res.error); return }
       navigate('lobby', { playerName: name.trim(), room: res.room })
@@ -30,46 +30,40 @@ export default function Home({ navigate }) {
   }
 
   return (
-    <div className={styles.home}>
-      <div className={styles.bgGrid} />
-      <div className={styles.hero}>
-        <div className={styles.logo}>Echo</div>
-        <div className={styles.tagline}>The word chain game that starts debates</div>
+    <div className={s.page}>
+      <div className={s.grid} />
+      <div className={s.content}>
+        <div className={s.logo}>Echo</div>
+        <div className={s.tagline}>The word chain game that starts arguments</div>
 
-        <div className={styles.card}>
-          {error && <div className={styles.error}>{error}</div>}
+        <div className={s.card}>
+          {error && <div className={s.error}>{error}</div>}
           <input
-            type="text"
-            placeholder="your name"
-            value={name}
+            type="text" placeholder="your name" value={name} maxLength={20} autoFocus
             onChange={e => { setName(e.target.value); setError('') }}
-            onKeyDown={e => e.key === 'Enter' && createRoom()}
-            maxLength={20}
-            autoFocus
+            onKeyDown={e => e.key === 'Enter' && create()}
           />
-          <button className={styles.btn} onClick={createRoom} disabled={loading}>
+          <button className="btn-primary" onClick={create} disabled={loading}>
             {loading ? 'Creating...' : 'Create Room'}
           </button>
-
-          <div className={styles.divider}>or join existing</div>
-
+          <div className={s.or}>— or join —</div>
           <input
-            type="text"
-            placeholder="room code"
-            value={joinCode}
-            onChange={e => { setJoinCode(e.target.value.toUpperCase()); setError('') }}
-            onKeyDown={e => e.key === 'Enter' && joinRoom()}
-            maxLength={6}
+            type="text" placeholder="room code" value={code} maxLength={6}
+            style={{ textTransform: 'uppercase' }}
+            onChange={e => { setCode(e.target.value.toUpperCase()); setError('') }}
+            onKeyDown={e => e.key === 'Enter' && join()}
           />
-          <button className={`${styles.btn} ${styles.secondary}`} onClick={joinRoom} disabled={loading}>
+          <button className="btn-secondary" onClick={join} disabled={loading}>
             {loading ? 'Joining...' : 'Join Room'}
           </button>
         </div>
 
-        <p className={styles.subtext}>
-          One word leads to another. But does it <em>really?</em><br />
-          Vote with your friends. Argue. Be wrong together.
-        </p>
+        <div className={s.features}>
+          <div className={s.feature}><span>⚡</span> Power-ups</div>
+          <div className={s.feature}><span>🔥</span> Streak bonuses</div>
+          <div className={s.feature}><span>🎯</span> Round themes</div>
+          <div className={s.feature}><span>⏱</span> 15s turns</div>
+        </div>
       </div>
     </div>
   )
