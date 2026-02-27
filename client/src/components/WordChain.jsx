@@ -9,15 +9,17 @@ export default function WordChain({ chain, pendingWord }) {
           <span className={styles.empty}>Waiting for first word...</span>
         )}
         {chain.map((entry, i) => (
-          <span key={i} className={styles.wordGroup}>
+          <span key={i} className={styles.group}>
             {i > 0 && <span className={styles.arrow}>→</span>}
-            <span className={`${styles.word} ${styles[entry.status]}`}>
+            <span className={`${styles.word} ${styles[entry.status]}`} title={entry.explanation || ''}>
               {entry.word}
+              {entry.streakBonus > 0 && <sup className={styles.streak}>🔥</sup>}
+              {entry.pointsEarned > 1 && <sup className={styles.double}>×2</sup>}
             </span>
           </span>
         ))}
         {pendingWord && (
-          <span className={styles.wordGroup}>
+          <span className={styles.group}>
             {chain.length > 0 && <span className={styles.arrow}>→</span>}
             <span className={`${styles.word} ${styles.pending}`}>{pendingWord}</span>
           </span>

@@ -5,7 +5,7 @@ import GameRoom from './components/GameRoom'
 import Results from './components/Results'
 
 export default function App() {
-  const [screen, setScreen] = useState('home') // home | lobby | game | results
+  const [screen, setScreen] = useState('home')
   const [playerName, setPlayerName] = useState('')
   const [roomData, setRoomData] = useState(null)
 
@@ -17,9 +17,9 @@ export default function App() {
 
   return (
     <>
-      {screen === 'home' && <Home navigate={navigate} />}
-      {screen === 'lobby' && <Lobby navigate={navigate} playerName={playerName} room={roomData} setRoom={setRoomData} />}
-      {screen === 'game' && <GameRoom navigate={navigate} playerName={playerName} room={roomData} setRoom={setRoomData} />}
+      {screen === 'home'    && <Home navigate={navigate} />}
+      {screen === 'lobby'   && <Lobby navigate={navigate} playerName={playerName} room={roomData} setRoom={setRoomData} />}
+      {screen === 'game'    && <GameRoom navigate={navigate} playerName={playerName} room={roomData} setRoom={setRoomData} />}
       {screen === 'results' && <Results navigate={navigate} playerName={playerName} room={roomData} />}
     </>
   )
