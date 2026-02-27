@@ -1,15 +1,20 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #0a0a0a;
-  --surface: #111111;
-  --border: #222222;
+  --bg: #080808;
+  --surface: #101010;
+  --surface2: #161616;
+  --border: #1e1e1e;
+  --border2: #2a2a2a;
   --accent: #e8ff47;
-  --accent2: #ff6b35;
-  --text: #f0f0f0;
-  --muted: #555;
-  --danger: #ff4444;
-  --green: #44ff88;
+  --accent-dim: rgba(232,255,71,0.12);
+  --text: #efefef;
+  --muted: #4a4a4a;
+  --muted2: #6a6a6a;
+  --danger: #ff4455;
+  --green: #3dffa0;
+  --blue: #4da6ff;
+  --orange: #ff8c3d;
 }
 
 body {
@@ -20,24 +25,14 @@ body {
   overflow-x: hidden;
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.4;
-}
-
 input[type="text"] {
   background: var(--bg);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border2);
   border-radius: 2px;
   color: var(--text);
   font-family: 'DM Mono', monospace;
-  font-size: 1rem;
-  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  padding: 0.8rem 1rem;
   outline: none;
   transition: border-color 0.2s;
   width: 100%;
@@ -47,17 +42,49 @@ input[type="text"]::placeholder { color: var(--muted); }
 
 button { cursor: pointer; font-family: 'DM Mono', monospace; }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-10px); }
-  to { opacity: 1; transform: translateX(0); }
+.btn-primary {
+  background: var(--accent);
+  border: none;
+  border-radius: 2px;
+  color: #080808;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.1em;
+  padding: 0.85rem 2rem;
+  transition: transform 0.1s, box-shadow 0.15s;
+  width: 100%;
 }
+.btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,255,71,0.25); }
+.btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 2px;
+  color: var(--text);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  padding: 0.75rem 2rem;
+  transition: border-color 0.2s, color 0.2s;
+  width: 100%;
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-@keyframes wordPop {
-  from { opacity: 0; transform: scale(0.5) translateY(10px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
 }

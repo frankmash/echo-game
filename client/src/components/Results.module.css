@@ -1,16 +1,5 @@
-.results {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-}
-
-.inner {
-  max-width: 600px;
-  width: 100%;
-}
-
+.results { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+.inner { max-width: 600px; width: 100%; }
 .title {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(3rem, 10vw, 5rem);
@@ -18,111 +7,45 @@
   letter-spacing: 0.1em;
   text-align: center;
 }
-
-.subtitle {
-  text-align: center;
-  font-size: 0.7rem;
-  color: var(--muted);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-}
-
+.winnerLine { text-align: center; font-size: 0.8rem; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 2rem; }
+.chainSection { margin-bottom: 2rem; }
+.sectionLabel { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.75rem; }
 .chain {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  justify-content: center;
-  align-items: center;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  border-radius: 2px;
-  min-height: 80px;
+  display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center;
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 1.25rem; border-radius: 2px; min-height: 70px;
 }
-
-.wordGroup { display: flex; align-items: center; gap: 0.35rem; }
+.group { display: flex; align-items: center; gap: 0.35rem; }
 .arrow { color: var(--muted); font-size: 0.8rem; }
-
-.word {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem;
-  letter-spacing: 0.05em;
-}
+.word { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; }
 .accepted { color: var(--green); }
 .rejected { color: var(--danger); text-decoration: line-through; opacity: 0.5; }
 .empty { color: var(--muted); font-size: 0.8rem; }
-
-.boardLabel {
-  font-size: 0.65rem;
-  color: var(--muted);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-
 .leaderboard { margin-bottom: 2rem; }
-
 .row {
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
   padding: 0.85rem 1rem;
   border-bottom: 1px solid var(--border);
   animation: slideIn 0.3s ease both;
 }
-
-.rank {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem;
-  color: var(--muted);
-  width: 2.5rem;
-}
+.rank { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--muted); width: 2.5rem; }
 .first { color: var(--accent); }
-
 .pname { flex: 1; padding: 0 1rem; font-size: 0.9rem; }
 .you { color: var(--muted); font-size: 0.75rem; }
-
-.score {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem;
-  color: var(--accent);
-}
-
+.score { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--accent); }
 .actions { display: flex; flex-direction: column; gap: 0.75rem; }
-
 .btnPrimary {
-  width: 100%;
-  background: var(--accent);
-  border: none;
-  border-radius: 2px;
-  color: #0a0a0a;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.3rem;
-  letter-spacing: 0.1em;
-  padding: 1rem;
+  width: 100%; background: var(--accent); border: none; border-radius: 2px;
+  color: #0a0a0a; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem;
+  letter-spacing: 0.1em; padding: 1rem;
   transition: transform 0.1s, box-shadow 0.1s;
 }
 .btnPrimary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,255,71,0.3); }
-
 .btnSecondary {
-  width: 100%;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  color: var(--text);
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
-  padding: 0.85rem;
+  width: 100%; background: transparent; border: 1px solid var(--border); border-radius: 2px;
+  color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+  letter-spacing: 0.1em; padding: 0.85rem;
   transition: border-color 0.2s, color 0.2s;
 }
 .btnSecondary:hover { border-color: var(--accent); color: var(--accent); }
-
-.waiting {
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  padding: 1rem;
-}
+.waiting { text-align: center; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; padding: 1rem; }

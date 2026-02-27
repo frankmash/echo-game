@@ -6,63 +6,45 @@
   margin-bottom: 1.5rem;
   animation: fadeIn 0.4s ease;
 }
-
-.question {
+.challengeBanner {
+  background: rgba(255,107,53,0.1);
+  border: 1px solid var(--accent2);
+  color: var(--accent2);
   font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 2px;
+}
+.question {
+  font-size: 0.7rem;
   color: var(--muted);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
-
 .words {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
-
-.wordA {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem;
-  color: var(--text);
-  letter-spacing: 0.05em;
-}
-
+.wordA { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--text); }
 .sep { color: var(--muted); font-size: 1.2rem; }
-
-.wordB {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem;
-  color: var(--accent);
-  letter-spacing: 0.05em;
-}
-
+.wordB { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--accent); }
 .explanation {
   background: rgba(232,255,71,0.05);
   border: 1px dashed rgba(232,255,71,0.2);
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   font-size: 0.8rem;
-  color: var(--text);
   border-radius: 2px;
 }
-
-.explLabel {
-  font-size: 0.65rem;
-  color: var(--muted);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-right: 0.5rem;
-}
-
-.buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
+.explLabel { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-right: 0.5rem; }
+.hint { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.75rem; letter-spacing: 0.05em; }
+.hint strong { color: var(--text); }
+.buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
 .voteBtn {
   padding: 1rem;
   font-family: 'Bebas Neue', sans-serif;
@@ -70,24 +52,30 @@
   letter-spacing: 0.1em;
   border-radius: 2px;
   border: 1px solid;
-  transition: all 0.15s;
   background: transparent;
+  transition: all 0.15s;
 }
-
 .yes { border-color: var(--green); color: var(--green); }
 .yes:hover:not(:disabled) { background: var(--green); color: #0a0a0a; }
 .no { border-color: var(--danger); color: var(--danger); }
 .no:hover:not(:disabled) { background: var(--danger); color: white; }
-
-.voted { opacity: 0.5; cursor: not-allowed; }
-.active.yes { background: var(--green); color: #0a0a0a; opacity: 1; }
-.active.no { background: var(--danger); color: white; opacity: 1; }
-
-.tally {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75rem;
-}
+.voteBtn:disabled { cursor: not-allowed; opacity: 0.6; }
+.activeYes { background: var(--green) !important; color: #0a0a0a !important; }
+.activeNo { background: var(--danger) !important; color: white !important; }
+.tally { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 0.75rem; }
 .tallyYes { color: var(--green); }
 .tallyNo { color: var(--danger); }
 .tallyPending { color: var(--muted); }
+.challengeBtn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--accent2);
+  color: var(--accent2);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  padding: 0.6rem;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.challengeBtn:hover { background: rgba(255,107,53,0.1); }

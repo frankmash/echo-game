@@ -6,7 +6,6 @@
   min-height: 100px;
   margin-bottom: 1.5rem;
 }
-
 .label {
   font-size: 0.65rem;
   color: var(--muted);
@@ -14,38 +13,24 @@
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
-
 .words {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
   align-items: center;
 }
-
-.wordGroup {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.arrow {
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
+.group { display: flex; align-items: center; gap: 0.25rem; }
+.arrow { color: var(--muted); font-size: 0.85rem; }
 .word {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.8rem;
   letter-spacing: 0.05em;
-  animation: wordPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  animation: wordPop 0.4s cubic-bezier(0.34,1.56,0.64,1);
 }
-
 .accepted { color: var(--text); }
 .rejected { color: var(--danger); text-decoration: line-through; opacity: 0.5; }
 .pending { color: var(--accent); border-bottom: 2px solid var(--accent); }
-
-.empty {
-  color: var(--muted);
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-}
+.empty { color: var(--muted); font-size: 0.8rem; letter-spacing: 0.1em; }
+.streak { font-size: 0.6rem; top: -0.5rem; right: -0.75rem; position: absolute; }
+.double { font-size: 0.55rem; top: -0.4rem; left: -0.5rem; position: absolute; color: var(--accent); }
