@@ -1,18 +1,39 @@
-# Echo 🔤
+# 🎮 Echo --- Real-Time Multiplayer Word Association Game
 
-> The word chain game that starts debates
+Echo is a real-time multiplayer word association game where players
+build a word chain together, but not everyone agrees on the
+connections.
 
-A real-time multiplayer word game built with React + Vite (frontend) and Node.js + Express + Socket.io (backend).
+------------------------------------------------------------------------
 
----
+##  Live Demo
 
-## How to Play
+Deployed on Vercel
 
-1. One player creates a room and shares the code
-2. Friends join using the code
-3. Players take turns submitting a word connected to the previous one
-4. Everyone votes — does the connection make sense?
-5. Defend your logic. Sway your friends.
-6. Win points for every accepted connection
-7. After 3 rounds, highest score wins
+------------------------------------------------------------------------
+
+##  How the Game Works
+
+1.  Players join a room (no account required).
+2.  One player submits a word connected to the previous word.
+3.  Other players vote whether the connection makes sense.
+4.  A word is rejected only if **all players vote NO**.
+5.  The game runs for **7 themed rounds**.
+
+------------------------------------------------------------------------
+
+## Features (v2)
+
+-   7 Themed Rounds (Nature, Emotions, Tech, Food, Cities, Wild Card,
+    Mythology)
+-   15-Second Turn Timer (auto-skip if no submission)
+-   Streak Bonus (+1 bonus point every 3 accepted words)
+-   Power-Ups (1 per player per game):
+    Skip Turn
+    2x Points
+    Challenge (force re-vote)
+-   Unanimous Rejection Rule
+-   Dark UI with animated word chain
+
+------------------------------------------------------------------------
 
