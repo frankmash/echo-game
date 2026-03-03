@@ -1,13 +1,25 @@
 import s from './PowerUps.module.css'
+import { playSkipSound, playDoubleActivate, playChallengeSound } from '../sounds'
 
 const POWERUPS = [
-  { key: 'skip',      icon: '⏭',  label: 'Skip',      color: '--blue',   desc: 'Skip the current player\'s turn' },
+  { key: 'skip',      icon: '⏭',  label: 'Skip',      color: '--blue',   desc: "Skip the current player's turn" },
   { key: 'double',    icon: '✕2',  label: 'Double',    color: '--orange', desc: 'Your next word scores 2x points' },
   { key: 'challenge', icon: '⚔',  label: 'Challenge', color: '--danger', desc: 'Force a re-vote on the last accepted word' },
 ]
 
+const soundMap = {
+  skip: playSkipSound,
+  double: playDoubleActivate,
+  challenge: playChallengeSound,
+}
+
 export default function PowerUps({ myPlayer, isMyTurn, votingActive, onUse }) {
   if (!myPlayer) return null
+
+  const handleUse = (key) => {
+    soundMap[key]?.()
+    onUse(key)
+  }
 
   return (
     <div className={s.row}>
@@ -23,7 +35,7 @@ export default function PowerUps({ myPlayer, isMyTurn, votingActive, onUse }) {
             key={p.key}
             className={`${s.btn} ${disabled ? s.disabled : ''} ${myPlayer.doubleActive && p.key === 'double' ? s.active : ''}`}
             style={{ '--color': `var(${p.color})` }}
-            onClick={() => !disabled && onUse(p.key)}
+            onClick={() => !disabled && handleUse(p.key)}
             title={p.desc}
             disabled={disabled}
           >
