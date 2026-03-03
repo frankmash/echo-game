@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './TurnTimer.module.css'
+import { playTick, playTimerExpire } from '../sounds'
 
 const TOTAL = 15
 
@@ -11,7 +12,13 @@ export default function TurnTimer({ active, onExpire, key: resetKey }) {
     if (!active) return
     const interval = setInterval(() => {
       setRemaining(prev => {
-        if (prev <= 1) { clearInterval(interval); onExpire?.(); return 0; }
+        if (prev <= 1) {
+          clearInterval(interval)
+          playTimerExpire()
+          onExpire?.()
+          return 0
+        }
+        playTick(prev <= 6 ? 1 : 0)
         return prev - 1
       })
     }, 1000)
@@ -25,7 +32,10 @@ export default function TurnTimer({ active, onExpire, key: resetKey }) {
   return (
     <div className={styles.wrap}>
       <div className={styles.bar}>
-        <div className={styles.fill} style={{ width: `${pct}%`, background: color, transition: 'width 1s linear, background 0.3s' }} />
+        <div
+          className={`${styles.fill} ${urgent ? styles.urgent : ''}`}
+          style={{ width: `${pct}%`, background: color, transition: 'width 1s linear, background 0.3s' }}
+        />
       </div>
       <span className={styles.num} style={{ color }}>{remaining}s</span>
     </div>
