@@ -1,4 +1,5 @@
 import styles from './VotingPanel.module.css'
+import { playVoteYes, playVoteNo } from '../sounds'
 
 export default function VotingPanel({ room, playerName, onVote, onChallenge }) {
   const prevWord = room.chain.length > 0 ? room.chain[room.chain.length - 1].word : null
@@ -8,6 +9,13 @@ export default function VotingPanel({ room, playerName, onVote, onChallenge }) {
   const total = room.players.length
   const myPowerups = room.players.find(p => p.name === playerName)?.powerups || {}
   const canChallenge = myPowerups.challenge > 0 && !room.challenged && room.pendingPlayer !== playerName
+
+  const handleVote = (vote) => {
+    if (myVote) return
+    if (vote === 'yes') playVoteYes()
+    else playVoteNo()
+    onVote(vote)
+  }
 
   return (
     <div className={styles.panel}>
@@ -31,12 +39,12 @@ export default function VotingPanel({ room, playerName, onVote, onChallenge }) {
       <div className={styles.buttons}>
         <button
           className={`${styles.voteBtn} ${styles.yes} ${myVote === 'yes' ? styles.activeYes : ''}`}
-          onClick={() => !myVote && onVote('yes')}
+          onClick={() => handleVote('yes')}
           disabled={!!myVote}
         >✓ Connects</button>
         <button
           className={`${styles.voteBtn} ${styles.no} ${myVote === 'no' ? styles.activeNo : ''}`}
-          onClick={() => !myVote && onVote('no')}
+          onClick={() => handleVote('no')}
           disabled={!!myVote}
         >✗ Nope</button>
       </div>
