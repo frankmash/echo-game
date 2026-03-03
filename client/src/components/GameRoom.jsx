@@ -4,21 +4,44 @@ import WordChain from './WordChain'
 import VotingPanel from './VotingPanel'
 import TurnTimer from './TurnTimer'
 import styles from './GameRoom.module.css'
+import {
+  unlockAudio, toggleMute, isMuted,
+  playAccept, playReject, playStreakBonus,
+  playWordSubmit, playRoundStart, playGameOver,
+  playSkipSound, playJoin,
+} from '../sounds'
 
 export default function GameRoom({ navigate, playerName, room, setRoom }) {
   const [word, setWord] = useState('')
   const [explanation, setExplanation] = useState('')
   const [toast, setToast] = useState(null)
   const [timerKey, setTimerKey] = useState(0)
+  const [muted, setMuted] = useState(false)
   const wordInputRef = useRef()
+  const prevRoundRef = useRef(room?.round)
 
   const currentPlayer = room?.players[room?.currentTurnIndex]
   const isMyTurn = currentPlayer?.name === playerName && !room?.votingActive
   const me = room?.players.find(p => p.name === playerName)
 
+  // Unlock audio on first render (requires user gesture context)
+  useEffect(() => { unlockAudio() }, [])
+
+  // Play round start sound when round changes
+  useEffect(() => {
+    if (!room) return
+    if (room.round !== prevRoundRef.current) {
+      playRoundStart()
+      prevRoundRef.current = room.round
+    }
+  }, [room?.round])
+
   useEffect(() => {
     const handlers = {
-      voting_started: (r) => { setRoom(r); setTimerKey(k => k + 1) },
+      voting_started: (r) => {
+        setRoom(r)
+        setTimerKey(k => k + 1)
+      },
       vote_updated: (r) => setRoom(r),
       vote_challenged: ({ playerName: challenger, room: r }) => {
         setRoom(r)
@@ -29,17 +52,24 @@ export default function GameRoom({ navigate, playerName, room, setRoom }) {
         setRoom(r)
         setTimerKey(k => k + 1)
         if (result.accepted) {
-          let msg = `✓ "${result.entry.word}" accepted!`
-          if (result.streakBonus) msg += ` 🔥 Streak bonus +${result.streakBonus}!`
-          if (result.pointsEarned > 1) msg += ` ✦ Double points!`
-          showToast(msg, 'success')
+          if (result.streakBonus) {
+            playStreakBonus()
+            showToast(`✓ "${result.entry.word}" accepted! 🔥 STREAK BONUS +${result.streakBonus}!`, 'success')
+          } else {
+            playAccept()
+            let msg = `✓ "${result.entry.word}" accepted!`
+            if (result.pointsEarned > 1) msg += ' ✦ Double points!'
+            showToast(msg, 'success')
+          }
         } else {
+          playReject()
           showToast(`✗ "${result.entry.word}" rejected unanimously`, 'error')
         }
       },
       player_skipped: ({ player, room: r }) => {
         setRoom(r)
         setTimerKey(k => k + 1)
+        playSkipSound()
         showToast(`⏭ ${player} took too long — skipped!`, 'warning')
       },
       powerup_used: ({ playerName: who, powerupId, room: r }) => {
@@ -47,11 +77,20 @@ export default function GameRoom({ navigate, playerName, room, setRoom }) {
         const labels = { skip: 'Skip', double: '2x Points', challenge: 'Challenge' }
         showToast(`${who} used ${labels[powerupId] || powerupId}`, 'info')
       },
-      game_over: (r) => { setRoom(r); navigate('results', { room: r }) },
+      room_updated: (r) => {
+        const prev = room?.players?.length ?? 0
+        if (r.players.length > prev) playJoin()
+        setRoom(r)
+      },
+      game_over: (r) => {
+        playGameOver()
+        setRoom(r)
+        navigate('results', { room: r })
+      },
     }
     Object.entries(handlers).forEach(([ev, fn]) => socket.on(ev, fn))
     return () => Object.keys(handlers).forEach(ev => socket.off(ev))
-  }, [])
+  }, [room?.players?.length])
 
   useEffect(() => {
     if (isMyTurn) setTimeout(() => wordInputRef.current?.focus(), 150)
@@ -64,6 +103,7 @@ export default function GameRoom({ navigate, playerName, room, setRoom }) {
 
   const submitWord = () => {
     if (!word.trim()) { showToast('Type a word first', 'error'); return }
+    playWordSubmit()
     socket.emit('submit_word', { code: room.code, playerName, word: word.trim(), explanation: explanation.trim() || null }, (res) => {
       if (res.error) { showToast(res.error, 'error'); return }
       setWord('')
@@ -96,6 +136,11 @@ export default function GameRoom({ navigate, playerName, room, setRoom }) {
     })
   }
 
+  const handleToggleMute = () => {
+    const nowMuted = toggleMute()
+    setMuted(nowMuted)
+  }
+
   if (!room) return null
 
   return (
@@ -110,7 +155,16 @@ export default function GameRoom({ navigate, playerName, room, setRoom }) {
             <span className={styles.themeHint}> — {room.currentTheme.hint}</span>
           </div>
         )}
-        <div className={styles.code}>{room.code}</div>
+        <div className={styles.headerRight}>
+          <button
+            className={`${styles.muteBtn} ${muted ? styles.mutedOn : ''}`}
+            onClick={handleToggleMute}
+            title={muted ? 'Unmute sounds' : 'Mute sounds'}
+          >
+            {muted ? '🔇' : '🔊'}
+          </button>
+          <div className={styles.code}>{room.code}</div>
+        </div>
       </div>
 
       {/* Players */}
@@ -171,7 +225,6 @@ export default function GameRoom({ navigate, playerName, room, setRoom }) {
               className={styles.explInput}
             />
 
-            {/* Power-ups for current player */}
             <div className={styles.powerups}>
               {me?.powerups?.skip > 0 && (
                 <button className={styles.puBtn} onClick={() => usePowerup('skip')} title="Skip your turn">
