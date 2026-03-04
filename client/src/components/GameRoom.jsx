@@ -24,7 +24,6 @@ export default function GameRoom({ navigate, playerName, room, setRoom }) {
   const isMyTurn = currentPlayer?.name === playerName && !room?.votingActive
   const me = room?.players.find(p => p.name === playerName)
 
-  // Unlock audio on first render (requires user gesture context)
   useEffect(() => { unlockAudio() }, [])
 
   // Play round start sound when round changes
